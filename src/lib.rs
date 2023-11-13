@@ -1,8 +1,8 @@
+pub use ws::WebSocketApiClient;
+
 pub mod error;
 pub mod util;
 pub mod ws;
-
-pub use ws::WebSocketApiClient;
 
 pub enum FutureRole {
     Linear,
@@ -72,6 +72,20 @@ impl From<KlineInterval> for &str {
 
 impl KlineInterval {
     pub fn to_string(&self) -> String {
-        self.into()
+        match self {
+            KlineInterval::Min1 => "1".to_string(),
+            KlineInterval::Min3 => "3".to_string(),
+            KlineInterval::Min5 => "5".to_string(),
+            KlineInterval::Min15 => "15".to_string(),
+            KlineInterval::Min30 => "30".to_string(),
+            KlineInterval::Min60 => "60".to_string(),
+            KlineInterval::Min120 => "120".to_string(),
+            KlineInterval::Min240 => "240".to_string(),
+            KlineInterval::Min360 => "360".to_string(),
+            KlineInterval::Min720 => "720".to_string(),
+            KlineInterval::Day => "D".to_string(),
+            KlineInterval::Week => "W".to_string(),
+            KlineInterval::Month => "M".to_string(),
+        }
     }
 }
