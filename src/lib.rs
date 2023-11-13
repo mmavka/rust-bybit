@@ -33,6 +33,7 @@ impl KlineIntervals {
     }
 }
 
+#[derive(Clone)]
 pub enum KlineInterval {
     Min1,
     Min3,
@@ -73,19 +74,19 @@ impl From<KlineInterval> for &str {
 impl KlineInterval {
     pub fn to_string(&self) -> String {
         match self {
-            KlineInterval::Min1 => "1".to_string(),
-            KlineInterval::Min3 => "3".to_string(),
-            KlineInterval::Min5 => "5".to_string(),
-            KlineInterval::Min15 => "15".to_string(),
-            KlineInterval::Min30 => "30".to_string(),
-            KlineInterval::Min60 => "60".to_string(),
-            KlineInterval::Min120 => "120".to_string(),
-            KlineInterval::Min240 => "240".to_string(),
-            KlineInterval::Min360 => "360".to_string(),
-            KlineInterval::Min720 => "720".to_string(),
-            KlineInterval::Day => "D".to_string(),
-            KlineInterval::Week => "W".to_string(),
-            KlineInterval::Month => "M".to_string(),
+            KlineInterval::Min1 => String::from("1"),
+            KlineInterval::Min3 => String::from("3"),
+            KlineInterval::Min5 => String::from("5"),
+            KlineInterval::Min15 => String::from("15"),
+            KlineInterval::Min30 => String::from("30"),
+            KlineInterval::Min60 => String::from("60"),
+            KlineInterval::Min120 => String::from("120"),
+            KlineInterval::Min240 => String::from("240"),
+            KlineInterval::Min360 => String::from("360"),
+            KlineInterval::Min720 => String::from("720"),
+            KlineInterval::Day => String::from("D"),
+            KlineInterval::Week => String::from("W"),
+            KlineInterval::Month => String::from("M"),
         }
     }
 }
