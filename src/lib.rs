@@ -9,6 +9,30 @@ pub enum FutureRole {
     Inverse,
 }
 
+pub struct KlineIntervals {
+    pub kline_intervals: Vec<KlineInterval>,
+}
+
+impl KlineIntervals {
+    pub fn all() -> Vec<KlineInterval> {
+        vec![
+            KlineInterval::Min1,
+            KlineInterval::Min3,
+            KlineInterval::Min5,
+            KlineInterval::Min15,
+            KlineInterval::Min30,
+            KlineInterval::Min60,
+            KlineInterval::Min120,
+            KlineInterval::Min240,
+            KlineInterval::Min360,
+            KlineInterval::Min720,
+            KlineInterval::Day,
+            KlineInterval::Week,
+            KlineInterval::Month,
+        ]
+    }
+}
+
 pub enum KlineInterval {
     Min1,
     Min3,
@@ -43,5 +67,11 @@ impl From<KlineInterval> for &str {
             Week => "W",
             Month => "M",
         }
+    }
+}
+
+impl KlineInterval {
+    pub fn to_string(&self) -> String {
+        self.into()
     }
 }
