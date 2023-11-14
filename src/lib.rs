@@ -33,7 +33,7 @@ impl KlineIntervals {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Copy)]
 pub enum KlineInterval {
     Min1,
     Min3,
