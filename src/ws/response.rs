@@ -1,8 +1,8 @@
 use super::callback::Arg;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 /// The pong/subscription response.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct OpResponse<'a> {
     pub success: bool,
     pub ret_msg: &'a str,
@@ -12,14 +12,14 @@ pub struct OpResponse<'a> {
 }
 
 /// The option pong response of public channels.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct OptionPongResponse<'a> {
     pub args: [&'a str; 1],
     pub op: &'a str,
 }
 
 /// The data in option subscription response.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct OptionSubscriptionData<'a> {
     #[serde(borrow)]
@@ -28,7 +28,7 @@ pub struct OptionSubscriptionData<'a> {
 }
 
 /// The option subscription response.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct OptionSubscriptionResponse<'a> {
     pub success: bool,
     pub conn_id: &'a str,
@@ -38,7 +38,7 @@ pub struct OptionSubscriptionResponse<'a> {
 }
 
 /// The pong response of private channels.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct PrivatePongResponse<'a> {
     pub req_id: Option<&'a str>,
     pub op: &'a str,
@@ -47,7 +47,7 @@ pub struct PrivatePongResponse<'a> {
 }
 
 /// The base response which contains common fields of public channels.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct BasePublicResponse<'a, Data> {
     /// Topic name.
     pub topic: &'a str,
@@ -61,7 +61,7 @@ pub struct BasePublicResponse<'a, Data> {
 }
 
 /// The base ticker response which contains common fields.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct BaseTickerPublicResponse<'a, Data> {
     /// Topic name.
     pub topic: &'a str,
@@ -76,7 +76,7 @@ pub struct BaseTickerPublicResponse<'a, Data> {
     pub data: Data,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct BaseOptionPublicResponse<'a, Data> {
     /// message ID
     pub id: &'a str,
@@ -92,7 +92,7 @@ pub struct BaseOptionPublicResponse<'a, Data> {
 }
 
 /// The base response which contains common fields of private channels.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct BasePrivateResponse<'a, Data> {
     /// Message ID.
@@ -106,11 +106,11 @@ pub struct BasePrivateResponse<'a, Data> {
 }
 
 /// The (price, size) pair of orderbook.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct OrderbookItem<'a>(pub &'a str, pub &'a str);
 
 /// The orderbook data.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Orderbook<'a> {
     /// Symbol name.
     pub s: &'a str,
@@ -128,7 +128,7 @@ pub struct Orderbook<'a> {
 
 /// The trade data.
 #[allow(non_snake_case)]
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Trade<'a> {
     /// The timestamp (ms) that the order is filled.
     pub T: u64,
@@ -149,7 +149,7 @@ pub struct Trade<'a> {
 }
 
 /// The spot ticker data. (`snapshot` only)
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SpotTicker<'a> {
     /// Symbol name.
@@ -173,7 +173,7 @@ pub struct SpotTicker<'a> {
 }
 
 /// The option ticker data. (`snapshot` only)
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct OptionTicker<'a> {
     /// Symbol name.
@@ -231,7 +231,7 @@ pub struct OptionTicker<'a> {
 /// The future ticker data.
 ///
 /// This data utilises the snapshot field and delta field. `None` means field value has not changed.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct FutureTicker<'a> {
     /// Symbol name.
@@ -285,7 +285,7 @@ pub struct FutureTicker<'a> {
 }
 
 /// The (leveraged token) kline data.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Kline<'a> {
     /// The start timestamp (ms)
     pub start: u64,
@@ -312,7 +312,7 @@ pub struct Kline<'a> {
 }
 
 /// The liquidation data.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Liquidation<'a> {
     /// The updated timestamp (ms).
@@ -328,7 +328,7 @@ pub struct Liquidation<'a> {
 }
 
 // The leveraged token ticker data.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct LtTicker<'a> {
     /// Symbol name.
@@ -346,7 +346,7 @@ pub struct LtTicker<'a> {
 }
 
 /// The leveraged token nav data.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct LtNav<'a> {
     /// The generated timestamp of nav.
@@ -368,7 +368,7 @@ pub struct LtNav<'a> {
 }
 
 /// The position data.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Position<'a> {
     /// Product type.
@@ -445,7 +445,7 @@ pub struct Position<'a> {
 /// The execution data.
 ///
 /// You may have multiple executions for one order in a single message.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Execution<'a> {
     /// Product type.
@@ -507,7 +507,7 @@ pub struct Execution<'a> {
 }
 
 /// The order data.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Order<'a> {
     /// Product type.
@@ -585,7 +585,7 @@ pub struct Order<'a> {
 }
 
 /// The wallet coin data.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct WalletCoin<'a> {
     /// Coin name, such as BTC, ETH, USDT, USDC.
@@ -620,7 +620,7 @@ pub struct WalletCoin<'a> {
 }
 
 /// The wallet data.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Wallet<'a> {
     /// Account type.
@@ -662,7 +662,7 @@ pub struct Wallet<'a> {
 }
 
 /// The greeks data.
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Greek<'a> {
     /// Base coin.
@@ -677,7 +677,7 @@ pub struct Greek<'a> {
     pub total_theta: &'a str,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(untagged)]
 pub enum SpotPublicResponse<'a> {
     #[serde(borrow)]
@@ -695,7 +695,7 @@ impl Arg for SpotPublicResponseArg {
     type ValueType<'a> = SpotPublicResponse<'a>;
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(untagged)]
 pub enum FuturePublicResponse<'a> {
     #[serde(borrow)]
@@ -712,7 +712,7 @@ impl Arg for FuturePublicResponseArg {
     type ValueType<'a> = FuturePublicResponse<'a>;
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(untagged)]
 pub enum OptionPublicResponse<'a> {
     #[serde(borrow)]
@@ -728,7 +728,7 @@ impl Arg for OptionPublicResponseArg {
     type ValueType<'a> = OptionPublicResponse<'a>;
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(untagged)]
 pub enum PrivateResponse<'a> {
     #[serde(borrow)]
